@@ -1,4 +1,5 @@
 import subprocess
+import sys
 
 print("안녕하세요! 데이터 수집 크롤러, ⭐️와구별⭐️ 입니다!!")
 while True:

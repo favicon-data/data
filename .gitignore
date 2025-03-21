@@ -2,3 +2,5 @@ diseases/
 environment/
 weather/
 venv/
+
+.DS_Store
