@@ -21,8 +21,8 @@ chrome_options.add_experimental_option(
         "safebrowsing.enabled": False,
     },
 )
-# chrome_options.add_argument("--headless")
-# chrome_options.add_argument("--disable-gpu")
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("--disable-gpu")
 
 service = Service("./chromedriver/chromedriver")
 driver = webdriver.Chrome(service=service, options=chrome_options)
@@ -41,13 +41,15 @@ try:
     select_normal = Select(dropdown)
     select_normal.select_by_index(0)
 
-    print("다운받고자 하는 기간의 년도를 다음과 같은 형식으로 입력해주세요: 2022-2025")
+    print(
+        "다운받고자 하는 기간의 년도를 다음과 같은 형식으로 입력해주세요: 2022-2025 (최대 3년 구간만 가능합니다.)"
+    )
     years = input()
-    start_year, end_year = years.split('-')
+    start_year, end_year = years.split("-")
 
     print("다운받고자 하는 기간의 월을 다음과 같은 형식으로 입력해주세요: 1-12")
     months = input()
-    start_month, end_month = months.split('-')
+    start_month, end_month = months.split("-")
     start_month = start_month.zfill(2)
     end_month = end_month.zfill(2)
 
@@ -57,8 +59,8 @@ try:
 
     dropdown = driver.find_element(By.ID, "endYear")
     select_start_year = Select(dropdown)
-    select_start_year.select_by_value(end_year)    
-    
+    select_start_year.select_by_value(end_year)
+
     dropdown = driver.find_element(By.ID, "startMonth")
     select_start_year = Select(dropdown)
     select_start_year.select_by_value(start_month)
@@ -70,9 +72,9 @@ try:
     print("원하는 지역의 번호를 선택해주세요.")
     print("-> 0. 전국  1. 서울경기  2. 강원영동  3. 강원영서  4. 충북  5. 충남")
     print("   6. 경북  7. 경남  8. 전북  9. 전남  10. 제주")
-    area = int(input())+3
-    
-    popup_button = driver.find_element(By.ID, "btnStn")  
+    area = int(input()) + 3
+
+    popup_button = driver.find_element(By.ID, "btnStn")
     popup_button.click()
     modal = WebDriverWait(driver, 10).until(
         EC.visibility_of_element_located((By.ID, "wrap-datapop"))
@@ -100,11 +102,13 @@ try:
     time.sleep(3)
 
     download_csv = wait.until(
-        EC.presence_of_element_located((By.XPATH, '//*[@id="wrap_content"]/div[5]/div[1]/div/a[1]'))
+        EC.presence_of_element_located(
+            (By.XPATH, '//*[@id="wrap_content"]/div[5]/div[1]/div/a[1]')
+        )
     )
     driver.execute_script("arguments[0].click();", download_csv)
     time.sleep(2)
-    
+
     print("다운로드 완료")
 
 finally:
