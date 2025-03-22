@@ -1,4 +1,6 @@
-.DS_Store
 diseases/
+environment/
 weather/
-environmnet/
+venv/
+
+.DS_Store
