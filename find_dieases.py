@@ -118,7 +118,7 @@ def main():
 
             download_file(driver, wait, index)
 
-            s3_filename = f"/origin/dieases/item_{index+1}_{start_date}_{end_date}.xlsx"
+            s3_filename = f"origin/dieases/item_{index+1}_{start_date}_{end_date}.xlsx"
             upload_and_cleanup_tempfile(DOWNLOAD_DIR, S3_BUCKET_NAME, s3_filename)
 
             # 목록 다시 불러오기
